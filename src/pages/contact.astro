@@ -1,0 +1,133 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="Contact — Rob DeGonda">
+  <main>
+    <section class="contact-hero">
+      <div class="container">
+        <div class="contact-header fade-in">
+          <p class="section-label">Contact</p>
+          <h1>Let's talk</h1>
+          <p class="contact-sub">Open to roles in defense, aerospace, AI, and fintech — and always interested in connecting with builders and investors. Reach out directly.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="contact-body">
+      <div class="container">
+        <div class="contact-grid fade-in">
+
+          <div class="contact-links">
+            <a href="mailto:robertdegon14@gmail.com" class="contact-card">
+              <div class="contact-card-icon">✉️</div>
+              <div>
+                <strong>Email</strong>
+                <span>robertdegon14@gmail.com</span>
+              </div>
+              <span class="contact-arrow">→</span>
+            </a>
+
+            <a href="https://linkedin.com/in/robdegonda" target="_blank" rel="noopener" class="contact-card">
+              <div class="contact-card-icon">💼</div>
+              <div>
+                <strong>LinkedIn</strong>
+                <span>linkedin.com/in/robdegonda</span>
+              </div>
+              <span class="contact-arrow">→</span>
+            </a>
+
+            <a href="https://github.com/Lazymoose123" target="_blank" rel="noopener" class="contact-card">
+              <div class="contact-card-icon">⌨️</div>
+              <div>
+                <strong>GitHub</strong>
+                <span>github.com/Lazymoose123</span>
+              </div>
+              <span class="contact-arrow">→</span>
+            </a>
+          </div>
+
+          <div class="availability-card fade-in">
+            <div class="avail-dot"></div>
+            <div class="avail-content">
+              <h2>Available now</h2>
+              <p>Targeting full-time roles in defense, aerospace, AI/fintech, or investment analytics. Based in Stillwater, MN — open to relocation for the right opportunity.</p>
+              <p>Also available for project-based advisory engagements through WRT Advisory.</p>
+              <div class="avail-tags">
+                <span>FP&A</span>
+                <span>Financial Modeling</span>
+                <span>M&A</span>
+                <span>Strategy</span>
+                <span>Defense / Aerospace</span>
+                <span>AI Finance</span>
+              </div>
+              <a href="mailto:robertdegon14@gmail.com" class="avail-cta">Send a note →</a>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+  </main>
+</Layout>
+
+<style>
+  .contact-hero { padding: 80px 0 40px; }
+  .contact-header h1 { font-size: clamp(36px, 6vw, 60px); font-weight: 800; letter-spacing: -0.03em; margin-bottom: 16px; }
+  .contact-sub { font-size: 16px; color: var(--text-muted); max-width: 520px; line-height: 1.7; }
+
+  .contact-body { padding: 40px 0 100px; }
+  .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: start; }
+
+  .contact-links { display: flex; flex-direction: column; gap: 12px; }
+  .contact-card {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 20px;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    transition: border-color 0.2s, transform 0.2s;
+    text-decoration: none;
+  }
+  .contact-card:hover { border-color: var(--accent); transform: translateX(4px); text-decoration: none; }
+  .contact-card-icon { font-size: 22px; flex-shrink: 0; }
+  .contact-card div { flex: 1; }
+  .contact-card strong { display: block; font-size: 14px; color: var(--text); margin-bottom: 2px; }
+  .contact-card span { font-size: 13px; color: var(--text-muted); }
+  .contact-arrow { font-size: 16px; color: var(--text-muted); transition: color 0.2s, transform 0.2s; }
+  .contact-card:hover .contact-arrow { color: var(--accent); transform: translateX(2px); }
+
+  .availability-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 28px;
+    position: relative;
+  }
+  .avail-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--accent);
+    position: absolute;
+    top: 24px;
+    right: 24px;
+    animation: pulse-dot 2s infinite;
+  }
+  @keyframes pulse-dot {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(0,217,255,0.4); }
+    50% { box-shadow: 0 0 0 6px rgba(0,217,255,0); }
+  }
+  .avail-content h2 { font-size: 20px; font-weight: 700; margin-bottom: 12px; }
+  .avail-content p { font-size: 14px; color: var(--text-muted); line-height: 1.7; margin-bottom: 12px; }
+  .avail-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 24px; }
+  .avail-tags span { font-size: 12px; font-weight: 500; color: var(--accent); background: var(--accent-dim); border: 1px solid rgba(0,217,255,0.2); padding: 4px 10px; border-radius: 100px; }
+  .avail-cta { display: inline-block; font-size: 14px; font-weight: 600; color: var(--accent); transition: opacity 0.2s; }
+  .avail-cta:hover { opacity: 0.7; text-decoration: none; }
+
+  @media (max-width: 768px) {
+    .contact-grid { grid-template-columns: 1fr; }
+  }
+</style>

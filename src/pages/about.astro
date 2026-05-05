@@ -1,0 +1,148 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const skills = [
+  { category: 'Finance', items: ['DCF Modeling', 'LBO', 'M&A', 'Options / Greeks', 'Business Valuation', 'FP&A', 'CapEx / NPV', 'Variance Analysis'] },
+  { category: 'Engineering', items: ['Python', 'SQL', 'Node.js', 'TypeScript', 'Electron', 'React', 'REST APIs', 'SQLite'] },
+  { category: 'AI & Data', items: ['Claude API', 'PowerBI', 'AWS', 'Azure', 'Deepgram', 'ElevenLabs', 'MCP Servers'] },
+  { category: 'Credentials', items: ['CFA Investment Foundations', 'SIE Certified', 'Carlson School of Management — B.S.B. Finance & Strategy'] },
+];
+
+const timeline = [
+  { year: '2020', title: 'Founded Stillwater Painting Crew', desc: 'Scaled to $120K revenue at 50% net margin while in school.' },
+  { year: '2022', title: 'Yellow Rose Capital — Lead Portfolio Manager', desc: 'Directed $300K portfolio to 85%+ ROI using DCF and comparables.' },
+  { year: '2024', title: 'Ameriprise Financial — Growth Analyst Intern', desc: 'Presented strategic analytics to the Executive Leadership Team.' },
+  { year: '2024', title: 'Sun Country Airlines — Intern → Full-time Analyst', desc: 'Owned FP&A infrastructure mid-merger during Allegiant acquisition.' },
+  { year: '2025', title: 'UMN Carlson — B.S.B. Finance & Strategy', desc: 'Graduated May 2025.' },
+  { year: '2026', title: 'WRT Advisory + 4 active builds', desc: 'Launching valuation firm while shipping DayTrade Assistant, AI Sales Trainer, and Cortex.' },
+];
+---
+
+<Layout title="About — Rob DeGonda">
+  <main>
+    <section class="about-hero">
+      <div class="container">
+        <div class="about-header fade-in">
+          <div class="headshot-wrap">
+            <img src="/images/rob-headshot.jpg" alt="Rob DeGonda" class="headshot" />
+          </div>
+          <div class="about-intro">
+            <p class="section-label">About</p>
+            <h1>Rob DeGonda</h1>
+            <p class="intro-role">Financial Analyst · Founder · Builder</p>
+            <p class="intro-location">📍 Stillwater, MN</p>
+            <div class="intro-links">
+              <a href="mailto:robertdegon14@gmail.com">robertdegon14@gmail.com</a>
+              <a href="https://linkedin.com/in/robdegonda" target="_blank" rel="noopener">LinkedIn ↗</a>
+              <a href="https://github.com/Lazymoose123" target="_blank" rel="noopener">GitHub ↗</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="about-story">
+      <div class="container">
+        <div class="story-grid">
+          <div class="story-text fade-in">
+            <h2>The story</h2>
+            <p>Growing up in Stillwater, MN, Rob founded his first company at 20 — a painting operation he scaled to $120K in revenue at 50% net margin while finishing a Finance and Strategic Management degree at the Carlson School of Management. He simultaneously ran Yellow Rose Capital, directing a $300K investment portfolio to 85%+ ROI through DCF modeling, comparables-based valuation, and disciplined position sizing. He interned at Ameriprise Financial, where he presented strategic analytics directly to the Executive Leadership Team. The pattern was clear from the start: build first, learn in parallel.</p>
+            <p>At Sun Country Airlines, Rob owned month-end variance analysis across flight and charter operations, led post-merger financial reporting standardization across disparate systems, and evaluated capital expenditure proposals from $50K to $500K end-to-end. He built the financial infrastructure mid-merger — during one of the most operationally complex periods in the carrier's history — and turned it into a framework that actually worked across functions. When Allegiant Air announced its acquisition of Sun Country, he treated it as a forcing function: launch WRT Advisory LLC and start shipping software simultaneously.</p>
+            <p>Today Rob runs three simultaneous software builds alongside a boutique valuation practice: DayTrade Assistant (a live Schwab-integrated swing trade screener), AI Sales Trainer (a real-time coaching platform for high-ticket remote closers), and Cortex (an AI-powered desktop productivity app). He is targeting roles in defense, aerospace, AI, and fintech where deep financial thinking and the ability to build intersect. He doesn't just analyze the problem — he builds the infrastructure to solve it.</p>
+          </div>
+
+          <div class="timeline-wrap fade-in">
+            <h2>Timeline</h2>
+            <div class="timeline">
+              {timeline.map((t, i) => (
+                <div class="timeline-item">
+                  <div class="timeline-year">{t.year}</div>
+                  <div class="timeline-dot"></div>
+                  <div class="timeline-content">
+                    <strong>{t.title}</strong>
+                    <span>{t.desc}</span>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="skills-section">
+      <div class="container">
+        <h2 class="fade-in">Skills & credentials</h2>
+        <div class="skills-grid fade-in">
+          {skills.map(group => (
+            <div class="skill-group">
+              <h3>{group.category}</h3>
+              <div class="skill-tags">
+                {group.items.map(s => <span class="skill-tag">{s}</span>)}
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  </main>
+</Layout>
+
+<style>
+  .about-hero { padding: 80px 0 0; }
+  .about-header { display: flex; gap: 40px; align-items: center; flex-wrap: wrap; }
+
+  .headshot-wrap {
+    flex-shrink: 0;
+    width: 160px;
+    height: 160px;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 3px solid var(--accent);
+    box-shadow: 0 0 0 6px rgba(0,217,255,0.1);
+  }
+  .headshot { width: 100%; height: 100%; object-fit: cover; object-position: top; }
+
+  .about-intro h1 { font-size: clamp(28px, 4vw, 44px); font-weight: 800; letter-spacing: -0.03em; margin-bottom: 6px; }
+  .intro-role { font-size: 15px; color: var(--accent); font-weight: 500; margin-bottom: 4px; }
+  .intro-location { font-size: 14px; color: var(--text-muted); margin-bottom: 16px; }
+  .intro-links { display: flex; flex-wrap: wrap; gap: 16px; }
+  .intro-links a { font-size: 14px; font-weight: 500; color: var(--text-muted); transition: color 0.2s; }
+  .intro-links a:hover { color: var(--accent); text-decoration: none; }
+
+  .about-story { padding: 64px 0; }
+  .story-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: start; }
+  .story-text h2, .timeline-wrap h2 { font-size: 22px; font-weight: 700; margin-bottom: 24px; }
+  .story-text p { font-size: 15px; color: var(--text-muted); line-height: 1.8; margin-bottom: 20px; }
+  .story-text p:last-child { margin-bottom: 0; }
+
+  .timeline { display: flex; flex-direction: column; gap: 0; position: relative; }
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 52px;
+    top: 8px;
+    bottom: 8px;
+    width: 1px;
+    background: var(--border);
+  }
+  .timeline-item { display: grid; grid-template-columns: 48px 16px 1fr; gap: 12px; align-items: flex-start; padding: 8px 0; }
+  .timeline-year { font-size: 12px; font-weight: 700; color: var(--accent); text-align: right; padding-top: 2px; }
+  .timeline-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--accent); margin: 4px auto 0; position: relative; z-index: 1; flex-shrink: 0; }
+  .timeline-content strong { display: block; font-size: 14px; color: var(--text); margin-bottom: 2px; }
+  .timeline-content span { font-size: 13px; color: var(--text-muted); line-height: 1.5; }
+
+  .skills-section { padding: 0 0 100px; }
+  .skills-section h2 { font-size: 22px; font-weight: 700; margin-bottom: 32px; }
+  .skills-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 32px; }
+  .skill-group h3 { font-size: 11px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 12px; }
+  .skill-tags { display: flex; flex-wrap: wrap; gap: 8px; }
+  .skill-tag { font-size: 13px; font-weight: 500; color: var(--text); background: var(--bg-card); border: 1px solid var(--border); padding: 5px 12px; border-radius: 8px; transition: border-color 0.2s; }
+  .skill-tag:hover { border-color: var(--accent); }
+
+  @media (max-width: 768px) {
+    .story-grid { grid-template-columns: 1fr; gap: 40px; }
+    .skills-grid { grid-template-columns: 1fr; }
+    .about-header { flex-direction: column; align-items: flex-start; }
+  }
+</style>

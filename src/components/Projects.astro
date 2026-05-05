@@ -1,0 +1,194 @@
+---
+const projects = [
+  {
+    name: 'DayTrade Assistant',
+    tagline: 'Algorithmic swing trade screener with live brokerage integration',
+    description: 'Python-based scanner that pulls real-time data from Schwab API, runs 10 technical signals across the S&P 500 + Nasdaq 100, recommends call options with full Greeks, and generates a dark-mode HTML report with embedded TradingView charts.',
+    tags: ['Python', 'Schwab API', 'SQLite', 'TradingView', 'Black-Scholes'],
+    stat: '10 signals · S&P 500 + Nasdaq 100',
+    accent: '#00d9ff',
+    icon: '📈',
+    link: '/projects/daytrade-assistant',
+    linkLabel: 'View project',
+  },
+  {
+    name: 'WRT Advisory',
+    tagline: 'Independent business valuation and M&A advisory firm',
+    description: 'Boutique valuation practice built from scratch — 409A, ASC 805/820, DCF, GPC comps, LBO models. Institutional-quality analysis with AI-assisted workflow enabling faster turnaround than traditional boutiques. Targeting $1M–$50M revenue companies in the Twin Cities.',
+    tags: ['Financial Modeling', 'DCF', 'M&A', 'Python', 'Excel'],
+    stat: 'Minneapolis-based · Founded 2026',
+    accent: '#818cf8',
+    icon: '🏦',
+    link: '/projects/wrt-advisory',
+    linkLabel: 'View project',
+  },
+  {
+    name: 'AI Sales Trainer',
+    tagline: 'Real-time AI coaching for high-ticket remote sellers',
+    description: 'SaaS platform that listens to live sales calls and delivers real-time coaching via an earpiece. Fastify + Twilio + Deepgram audio pipeline with Claude for live feedback and ElevenLabs for voice synthesis. Built for individual closers doing $5K–$50K deals.',
+    tags: ['Claude API', 'Electron', 'Twilio', 'Deepgram', 'ElevenLabs', 'Node.js'],
+    stat: 'Phase 1 complete · Audio pipeline in progress',
+    accent: '#34d399',
+    icon: '🎙️',
+    link: '/projects/ai-sales-trainer',
+    linkLabel: 'View project',
+  },
+  {
+    name: 'Cortex',
+    tagline: 'AI-powered desktop app for personal productivity',
+    description: 'Electron + React desktop application with a session dashboard, goal tracker, and gap analysis engine. Phase 2 adds a voice server for voice-driven interaction. Built for deep work sessions and long-horizon goal tracking.',
+    tags: ['Electron', 'React', 'Node.js', 'Claude API'],
+    stat: 'Phase 1 live · Voice layer in development',
+    accent: '#fb923c',
+    icon: '🧠',
+    link: '/projects/cortex',
+    linkLabel: 'View project',
+  },
+  {
+    name: 'Terminal Intelligence',
+    tagline: 'B2B newsletter for aviation tech vendors selling into ULCCs',
+    description: 'Weekly intelligence for companies selling AI, software, and services into ultra-low-cost carriers like Frontier, Allegiant, and Sun Country. Covers fleet tech, ancillary revenue systems, ops automation, and M&A. Built from inside the industry.',
+    tags: ['Aviation', 'B2B', 'Market Research', 'Content Strategy'],
+    stat: 'Twin Cities + national distribution',
+    accent: '#f472b6',
+    icon: '✈️',
+    link: '/projects/terminal-intelligence',
+    linkLabel: 'View project',
+  },
+];
+---
+
+<section id="projects">
+  <div class="container">
+    <p class="section-label">Work</p>
+    <h2>Projects</h2>
+    <div class="projects-grid">
+      {projects.map((p, i) => (
+        <article class="project-card fade-in" style={`--delay: ${i * 0.08}s; --card-accent: ${p.accent};`}>
+          <div class="card-header">
+            <span class="card-icon">{p.icon}</span>
+            <span class="card-stat">{p.stat}</span>
+          </div>
+          <h3 class="card-name">{p.name}</h3>
+          <p class="card-tagline">{p.tagline}</p>
+          <p class="card-desc">{p.description}</p>
+          <div class="card-tags">
+            {p.tags.map(t => <span class="tag">{t}</span>)}
+          </div>
+          <a href={p.link} class="card-link">
+            {p.linkLabel} →
+          </a>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+    gap: 24px;
+  }
+
+  .project-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 28px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    transition: border-color 0.25s, transform 0.25s, box-shadow 0.25s;
+    transition-delay: var(--delay);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .project-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: var(--card-accent);
+    opacity: 0;
+    transition: opacity 0.25s;
+  }
+
+  .project-card:hover {
+    border-color: var(--card-accent);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+  }
+  .project-card:hover::before { opacity: 1; }
+
+  .card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 4px;
+  }
+
+  .card-icon { font-size: 24px; }
+
+  .card-stat {
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--text-muted);
+    background: var(--bg);
+    border: 1px solid var(--border);
+    padding: 4px 10px;
+    border-radius: 100px;
+  }
+
+  .card-name {
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--text);
+    letter-spacing: -0.01em;
+  }
+
+  .card-tagline {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--card-accent);
+  }
+
+  .card-desc {
+    font-size: 14px;
+    color: var(--text-muted);
+    line-height: 1.65;
+    flex: 1;
+  }
+
+  .card-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 4px;
+  }
+
+  .tag {
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--text-muted);
+    background: var(--bg);
+    border: 1px solid var(--border);
+    padding: 4px 10px;
+    border-radius: 6px;
+    letter-spacing: 0.02em;
+  }
+
+  .card-link {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--card-accent);
+    margin-top: 8px;
+    transition: opacity 0.2s;
+  }
+  .card-link:hover { opacity: 0.7; text-decoration: none; }
+
+  @media (max-width: 640px) {
+    .projects-grid { grid-template-columns: 1fr; }
+  }
+</style>

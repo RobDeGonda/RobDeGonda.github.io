@@ -1,0 +1,156 @@
+---
+import Layout from '../../layouts/Layout.astro';
+
+const services = [
+  { name: '409A Valuations', desc: 'Startup equity compensation — defensible fair market value for option grants', icon: '🎯' },
+  { name: 'ASC 805', desc: 'Purchase Price Allocation for M&A transactions — intangibles, goodwill, step-ups', icon: '🔀' },
+  { name: 'ASC 820', desc: 'Fair Value measurement for financial reporting and audit support', icon: '📊' },
+  { name: 'M&A Advisory', desc: 'Sell-side prep, strategic valuation, buyer targeting for $1M–$50M companies', icon: '🤝' },
+  { name: 'DCF Modeling', desc: 'Three-statement models, WACC analysis, scenario analysis', icon: '📈' },
+  { name: 'Financial Forecasting', desc: 'Multi-year projections, budget models, KPI dashboards', icon: '🔭' },
+];
+
+const verticals = ['SaaS / Tech', 'Professional Services', 'Manufacturing', 'Agriculture', 'Healthcare'];
+---
+
+<Layout title="WRT Advisory — Rob DeGonda">
+  <main>
+    <div class="project-hero">
+      <div class="hero-grid-bg"></div>
+      <div class="container hero-content">
+        <a href="/projects" class="back-link">← Projects</a>
+        <div class="project-icon">🏦</div>
+        <h1>WRT Advisory</h1>
+        <p class="project-tagline">Independent business valuation and M&A advisory — Minneapolis</p>
+        <div class="project-meta">
+          <span class="meta-tag">Financial Modeling</span>
+          <span class="meta-tag">DCF</span>
+          <span class="meta-tag">M&A</span>
+          <span class="meta-tag">USPAP</span>
+          <span class="meta-tag">ASC 805/820</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="container project-body">
+      <div class="project-grid">
+        <div class="project-main">
+          <h2>What it is</h2>
+          <p>WRT Advisory is a boutique business valuation and financial advisory firm targeting small-to-mid-market companies in the Minneapolis/Twin Cities region. All work follows USPAP principles and applies the three standard valuation approaches: income (DCF, capitalization of earnings), market (guideline public company, precedent transactions), and asset (adjusted net asset value).</p>
+          <p>The differentiator is institutional-quality analysis delivered through an AI-assisted workflow — faster turnaround than traditional boutiques at competitive price points. Engagements typically serve companies with $1M–$50M in revenue at inflection points: fundraising, M&A, ownership transition, ESOP, or strategic planning.</p>
+
+          <h2>Services</h2>
+          <div class="services-grid">
+            {services.map(s => (
+              <div class="service-card">
+                <span class="service-icon">{s.icon}</span>
+                <div>
+                  <h3>{s.name}</h3>
+                  <p>{s.desc}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          <h2>Target verticals</h2>
+          <div class="verticals">
+            {verticals.map(v => <span class="vertical-tag">{v}</span>)}
+          </div>
+        </div>
+
+        <div class="project-sidebar">
+          <div class="sidebar-card">
+            <h3>Methodology</h3>
+            <div class="method-list">
+              <div class="method-item">
+                <span class="method-icon">💰</span>
+                <div>
+                  <strong>Income Approach</strong>
+                  <span>DCF · Capitalization of Earnings</span>
+                </div>
+              </div>
+              <div class="method-item">
+                <span class="method-icon">📊</span>
+                <div>
+                  <strong>Market Approach</strong>
+                  <span>GPC · Precedent Transactions</span>
+                </div>
+              </div>
+              <div class="method-item">
+                <span class="method-icon">🏗️</span>
+                <div>
+                  <strong>Asset Approach</strong>
+                  <span>Adjusted Net Asset Value</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="sidebar-stats">
+            <div class="stat-row"><span>Geography</span><strong>Minneapolis / Twin Cities</strong></div>
+            <div class="stat-row"><span>Market</span><strong>$1M–$50M revenue</strong></div>
+            <div class="stat-row"><span>Standards</span><strong>USPAP compliant</strong></div>
+            <div class="stat-row"><span>Status</span><strong class="status-building">Building</strong></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+</Layout>
+
+<style>
+  .project-hero {
+    position: relative;
+    height: 340px;
+    overflow: hidden;
+    background: linear-gradient(135deg, #0a1128, #1a1040, #0a0a30);
+    display: flex;
+    align-items: flex-end;
+  }
+  .hero-grid-bg {
+    position: absolute;
+    inset: 0;
+    background-image: linear-gradient(rgba(129,140,248,0.06) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(129,140,248,0.06) 1px, transparent 1px);
+    background-size: 40px 40px;
+  }
+  .hero-content { position: relative; z-index: 2; padding-bottom: 40px; }
+  .back-link { display: inline-block; font-size: 13px; color: var(--text-muted); margin-bottom: 16px; transition: color 0.2s; }
+  .back-link:hover { color: var(--text); text-decoration: none; }
+  .project-icon { font-size: 36px; margin-bottom: 12px; }
+  h1 { font-size: clamp(32px, 5vw, 52px); font-weight: 800; letter-spacing: -0.03em; margin-bottom: 12px; }
+  .project-tagline { font-size: 17px; color: var(--text-muted); margin-bottom: 16px; }
+  .project-meta { display: flex; flex-wrap: wrap; gap: 8px; }
+  .meta-tag { font-size: 12px; font-weight: 600; color: #818cf8; background: rgba(129,140,248,0.1); border: 1px solid rgba(129,140,248,0.25); padding: 4px 12px; border-radius: 100px; }
+
+  .project-body { padding: 48px 0 100px; }
+  .project-grid { display: grid; grid-template-columns: 1fr 360px; gap: 48px; align-items: start; }
+  .project-main h2 { font-size: 20px; font-weight: 700; margin: 0 0 16px; }
+  .project-main h2:not(:first-child) { margin-top: 40px; }
+  .project-main > p { font-size: 15px; color: var(--text-muted); line-height: 1.75; margin-bottom: 16px; }
+
+  .services-grid { display: flex; flex-direction: column; gap: 10px; }
+  .service-card { display: flex; gap: 16px; padding: 16px; background: var(--bg-card); border: 1px solid var(--border); border-radius: 10px; transition: border-color 0.2s; }
+  .service-card:hover { border-color: #818cf8; }
+  .service-icon { font-size: 22px; flex-shrink: 0; }
+  .service-card h3 { font-size: 14px; font-weight: 700; color: var(--text); margin-bottom: 4px; }
+  .service-card p { font-size: 13px; color: var(--text-muted); margin: 0; }
+
+  .verticals { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 4px; }
+  .vertical-tag { font-size: 13px; font-weight: 500; color: #818cf8; background: rgba(129,140,248,0.08); border: 1px solid rgba(129,140,248,0.2); padding: 6px 14px; border-radius: 100px; }
+
+  .project-sidebar { display: flex; flex-direction: column; gap: 16px; }
+  .sidebar-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 10px; padding: 20px; }
+  .sidebar-card h3 { font-size: 13px; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 16px; }
+  .method-list { display: flex; flex-direction: column; gap: 12px; }
+  .method-item { display: flex; gap: 12px; align-items: flex-start; }
+  .method-icon { font-size: 18px; flex-shrink: 0; }
+  .method-item strong { display: block; font-size: 14px; color: var(--text); margin-bottom: 2px; }
+  .method-item span { font-size: 12px; color: var(--text-muted); }
+  .sidebar-stats { background: var(--bg-card); border: 1px solid var(--border); border-radius: 10px; overflow: hidden; }
+  .stat-row { display: flex; justify-content: space-between; align-items: center; padding: 12px 16px; border-bottom: 1px solid var(--border); font-size: 13px; }
+  .stat-row:last-child { border-bottom: none; }
+  .stat-row span { color: var(--text-muted); }
+  .stat-row strong { color: var(--text); }
+  .status-building { color: #fb923c !important; }
+  @media (max-width: 900px) { .project-grid { grid-template-columns: 1fr; } }
+</style>

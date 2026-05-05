@@ -1,0 +1,120 @@
+---
+interface Props {
+  title?: string;
+  description?: string;
+}
+const { title = 'Rob DeGonda', description = 'Finance + AI builder. Financial analyst, founder, and builder working at the intersection of data, automation, and capital markets.' } = Astro.props;
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content={description} />
+    <title>{title}</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  </head>
+  <body>
+    <nav>
+      <div class="container nav-inner">
+        <a href="/" class="nav-logo">RD</a>
+        <div class="nav-links">
+          <a href="/projects">Projects</a>
+          <a href="/about">About</a>
+          <a href="/contact">Contact</a>
+          <a href="mailto:robertdegon14@gmail.com" class="nav-cta">Get in touch</a>
+        </div>
+      </div>
+    </nav>
+
+    <slot />
+
+    <footer>
+      <div class="container footer-inner">
+        <span class="footer-copy">© 2026 Rob DeGonda</span>
+        <div class="footer-links">
+          <a href="https://linkedin.com/in/robdegonda" target="_blank" rel="noopener">LinkedIn</a>
+          <a href="https://github.com/Lazymoose123" target="_blank" rel="noopener">GitHub</a>
+          <a href="mailto:robertdegon14@gmail.com">Email</a>
+        </div>
+      </div>
+    </footer>
+
+    <script>
+      // Fade-in on scroll
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+      }, { threshold: 0.1 });
+      document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+    </script>
+  </body>
+</html>
+
+<style is:global>
+  @import '../styles/globals.css';
+
+  nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(10, 17, 40, 0.85);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    padding: 16px 0;
+  }
+
+  .nav-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .nav-logo {
+    font-size: 18px;
+    font-weight: 800;
+    color: var(--text);
+    letter-spacing: -0.02em;
+  }
+  .nav-logo:hover { text-decoration: none; color: var(--accent); }
+
+  .nav-links {
+    display: flex;
+    align-items: center;
+    gap: 32px;
+  }
+  .nav-links a { color: var(--text-muted); font-size: 14px; font-weight: 500; transition: color 0.2s; }
+  .nav-links a:hover { color: var(--text); text-decoration: none; }
+
+  .nav-cta {
+    background: var(--accent);
+    color: var(--bg) !important;
+    padding: 8px 18px;
+    border-radius: 8px;
+    font-weight: 600 !important;
+    transition: opacity 0.2s !important;
+  }
+  .nav-cta:hover { opacity: 0.85; }
+
+  footer {
+    border-top: 1px solid var(--border);
+    padding: 32px 0;
+  }
+  .footer-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .footer-copy { color: var(--text-muted); font-size: 14px; }
+  .footer-links { display: flex; gap: 24px; }
+  .footer-links a { color: var(--text-muted); font-size: 14px; }
+  .footer-links a:hover { color: var(--text); text-decoration: none; }
+
+  @media (max-width: 640px) {
+    .nav-links { gap: 16px; }
+    .nav-links a:not(.nav-cta) { display: none; }
+    .footer-inner { flex-direction: column; gap: 16px; text-align: center; }
+  }
+</style>

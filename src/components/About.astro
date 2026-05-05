@@ -1,0 +1,116 @@
+---
+---
+<section id="about">
+  <div class="container">
+    <div class="about-grid">
+      <div class="about-left fade-in">
+        <p class="section-label">Background</p>
+        <h2>About</h2>
+        <p class="about-bio">
+          Recent UMN Carlson grad (Finance + Strategy). I built financial reporting infrastructure mid-merger at Sun Country Airlines, led a $300K investment fund to 85%+ ROI using DCF and comparables, and bootstrapped a business to $120K revenue at 50% margin.
+        </p>
+        <p class="about-bio">
+          Now I'm building at the intersection of finance and AI — a valuation firm, an algorithmic trader, and a real-time sales coaching SaaS, all at once. I'm interested in roles at the frontier of data, automation, and capital markets in defense, aerospace, AI, and fintech.
+        </p>
+        <div class="about-links">
+          <a href="mailto:robertdegon14@gmail.com" class="about-link">robertdegon14@gmail.com</a>
+          <a href="https://linkedin.com/in/robdegonda" target="_blank" rel="noopener" class="about-link">LinkedIn ↗</a>
+        </div>
+      </div>
+
+      <div class="about-right fade-in">
+        <div class="skills-block">
+          <h3 class="skills-category">Finance</h3>
+          <div class="skills-tags">
+            {['DCF Modeling', 'LBO', 'M&A', 'Options / Greeks', 'Business Valuation', 'FP&A', 'CapEx / NPV'].map(s => <span class="skill-tag">{s}</span>)}
+          </div>
+        </div>
+        <div class="skills-block">
+          <h3 class="skills-category">Engineering</h3>
+          <div class="skills-tags">
+            {['Python', 'SQL', 'Node.js', 'Electron', 'React', 'REST APIs'].map(s => <span class="skill-tag">{s}</span>)}
+          </div>
+        </div>
+        <div class="skills-block">
+          <h3 class="skills-category">AI & Data</h3>
+          <div class="skills-tags">
+            {['Claude API', 'PowerBI', 'AWS', 'Azure', 'SQLite', 'MCP Servers'].map(s => <span class="skill-tag">{s}</span>)}
+          </div>
+        </div>
+        <div class="skills-block">
+          <h3 class="skills-category">Credentials</h3>
+          <div class="skills-tags">
+            {['CFA Investment Foundations', 'SIE Certified'].map(s => <span class="skill-tag">{s}</span>)}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: start;
+  }
+
+  .about-left h2 { margin-bottom: 24px; }
+
+  .about-bio {
+    font-size: 16px;
+    color: var(--text-muted);
+    line-height: 1.75;
+    margin-bottom: 16px;
+  }
+
+  .about-links {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-top: 32px;
+  }
+  .about-link { font-size: 14px; font-weight: 500; color: var(--accent); }
+  .about-link:hover { text-decoration: none; opacity: 0.8; }
+
+  .about-right {
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+    padding-top: 60px;
+  }
+
+  .skills-category {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 10px;
+  }
+
+  .skills-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .skill-tag {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text);
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    padding: 5px 12px;
+    border-radius: 8px;
+    transition: border-color 0.2s, color 0.2s;
+    cursor: default;
+  }
+  .skill-tag:hover { border-color: var(--accent); color: var(--accent); }
+
+  @media (max-width: 768px) {
+    .about-grid { grid-template-columns: 1fr; gap: 40px; }
+    .about-right { padding-top: 0; }
+  }
+</style>

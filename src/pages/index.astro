@@ -1,0 +1,22 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Hero from '../components/Hero.astro';
+import Projects from '../components/Projects.astro';
+---
+
+<Layout>
+  <main>
+    <Hero />
+    <div class="section-divider"></div>
+    <Projects />
+  </main>
+</Layout>
+
+<style>
+  .section-divider {
+    border-top: 1px solid var(--border);
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+</style>

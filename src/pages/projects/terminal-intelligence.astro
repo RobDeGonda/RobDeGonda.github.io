@@ -1,0 +1,210 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import FileTree from '../../components/FileTree.astro';
+
+const files = [
+  { name: 'index.html', type: 'file' },
+  { name: 'README.md', type: 'file' },
+  { name: 'terminal-intelligence-logo.svg', type: 'file' },
+  { name: 'terminal-intelligence-logo.png', type: 'file' },
+  { name: 'terminal-intelligence-logo-reversed.svg', type: 'file' },
+  { name: 'terminal-intelligence-logo-reversed.png', type: 'file' },
+  { name: 'terminal-intelligence-icon.svg', type: 'file' },
+  { name: 'terminal-intelligence-icon.png', type: 'file' },
+];
+---
+
+<Layout title="Terminal Intelligence — Rob DeGonda">
+  <main>
+    <div class="project-hero">
+      <canvas id="matrix-canvas"></canvas>
+      <div class="hero-overlay"></div>
+      <div class="container hero-content">
+        <a href="/projects" class="back-link">← Projects</a>
+        <div class="project-icon">✈️</div>
+        <h1>Terminal Intelligence</h1>
+        <p class="project-tagline">B2B intelligence for aviation tech vendors selling into ULCCs</p>
+        <div class="project-meta">
+          <span class="meta-tag">Aviation</span>
+          <span class="meta-tag">B2B</span>
+          <span class="meta-tag">Market Research</span>
+          <span class="meta-tag">ULCC</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="container project-body">
+      <div class="project-grid">
+        <div class="project-main">
+          <h2>What it is</h2>
+          <p>Terminal Intelligence is a B2B newsletter built for companies selling AI, software, and services into ultra-low-cost carriers — Frontier, Allegiant, Sun Country, and their peers. The ULCC segment is one of the most analytically underserved niches in aviation: these carriers run lean ops, prioritize ancillary revenue over fare, and make technology buying decisions differently than legacy airlines.</p>
+          <p>The newsletter covers fleet technology, revenue management systems, ops automation, ancillary product innovation, and M&A. It's written from inside the industry — Rob has worked at Sun Country through its acquisition by Allegiant and brings direct operational context to every issue.</p>
+          <p>Target readers are VPs of Sales and Business Development at companies selling into aviation technology: yield management software, crew scheduling tools, maintenance systems, loyalty platforms, and AI operations tools. The content connects industry trends to specific buying signals.</p>
+
+          <h2>Why ULCCs</h2>
+          <div class="arch-grid">
+            <div class="arch-item"><span class="arch-label">Market</span><span class="arch-val">Spirit is gone, Frontier is struggling — Allegiant and Sun Country are gaining share</span></div>
+            <div class="arch-item"><span class="arch-label">Tech spend</span><span class="arch-val">ULCCs are rapidly modernizing infrastructure as legacy carriers did in 2010–2015</span></div>
+            <div class="arch-item"><span class="arch-label">Ancillary</span><span class="arch-val">Bag fees, seat upgrades, travel packages — ancillary is the real P&L story</span></div>
+            <div class="arch-item"><span class="arch-label">Intel edge</span><span class="arch-val">Built by someone who ran FP&A at a ULCC mid-merger — not a journalist</span></div>
+          </div>
+        </div>
+
+        <div class="project-sidebar">
+          <FileTree
+            repoName="terminalintelligence"
+            repoUrl="https://github.com/Lazymoose123/terminalintelligence"
+            description="Carrier intelligence built for the people"
+            files={files}
+          />
+          <div class="sidebar-stats">
+            <div class="stat-row"><span>Focus</span><strong>ULCC aviation tech</strong></div>
+            <div class="stat-row"><span>Format</span><strong>B2B newsletter</strong></div>
+            <div class="stat-row"><span>Audience</span><strong>Vendors · VPs · BD teams</strong></div>
+            <div class="stat-row"><span>Status</span><strong class="status-live">Live</strong></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+</Layout>
+
+<script>
+  const canvas = document.getElementById('matrix-canvas') as HTMLCanvasElement;
+  if (canvas) {
+    const ctx = canvas.getContext('2d')!;
+    canvas.width = window.innerWidth;
+    canvas.height = 340;
+
+    const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789<>[]{}|\\/@#$%^&*ULCCATPFLIGHTSRPM';
+    const fontSize = 13;
+    const cols = Math.floor(canvas.width / fontSize);
+    const drops: number[] = Array(cols).fill(1);
+
+    function draw() {
+      ctx.fillStyle = 'rgba(10, 17, 40, 0.07)';
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      ctx.fillStyle = '#f472b6';
+      ctx.font = `${fontSize}px 'SFMono-Regular', monospace`;
+      for (let i = 0; i < drops.length; i++) {
+        const char = chars[Math.floor(Math.random() * chars.length)];
+        ctx.fillStyle = drops[i] * fontSize < canvas.height * 0.6
+          ? `rgba(244, 114, 182, ${0.3 + Math.random() * 0.4})`
+          : `rgba(244, 114, 182, 0.08)`;
+        ctx.fillText(char, i * fontSize, drops[i] * fontSize);
+        if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) drops[i] = 0;
+        drops[i]++;
+      }
+    }
+    setInterval(draw, 50);
+  }
+</script>
+
+<style>
+  .project-hero {
+    position: relative;
+    height: 340px;
+    overflow: hidden;
+    background: #0a0518;
+  }
+  #matrix-canvas {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+  }
+  .hero-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to bottom, rgba(10,5,24,0.3) 0%, rgba(10,5,24,0.7) 100%);
+  }
+  .hero-content {
+    position: relative;
+    z-index: 2;
+    padding-bottom: 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    height: 100%;
+  }
+  .back-link {
+    display: inline-block;
+    font-size: 13px;
+    color: var(--text-muted);
+    margin-bottom: 16px;
+    transition: color 0.2s;
+  }
+  .back-link:hover { color: var(--text); text-decoration: none; }
+  .project-icon { font-size: 36px; margin-bottom: 12px; }
+  h1 {
+    font-size: clamp(32px, 5vw, 52px);
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    margin-bottom: 12px;
+  }
+  .project-tagline { font-size: 17px; color: var(--text-muted); margin-bottom: 16px; }
+  .project-meta { display: flex; flex-wrap: wrap; gap: 8px; }
+  .meta-tag {
+    font-size: 12px;
+    font-weight: 600;
+    color: #f472b6;
+    background: rgba(244,114,182,0.1);
+    border: 1px solid rgba(244,114,182,0.25);
+    padding: 4px 12px;
+    border-radius: 100px;
+  }
+
+  .project-body { padding: 48px 0 100px; }
+  .project-grid {
+    display: grid;
+    grid-template-columns: 1fr 400px;
+    gap: 48px;
+    align-items: start;
+  }
+  .project-main h2 {
+    font-size: 20px;
+    font-weight: 700;
+    margin: 0 0 16px;
+  }
+  .project-main h2:not(:first-child) { margin-top: 40px; }
+  .project-main p {
+    font-size: 15px;
+    color: var(--text-muted);
+    line-height: 1.75;
+    margin-bottom: 16px;
+  }
+  .arch-grid { display: flex; flex-direction: column; gap: 8px; }
+  .arch-item {
+    display: flex;
+    gap: 16px;
+    padding: 12px 16px;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    font-size: 14px;
+  }
+  .arch-label { color: #f472b6; font-weight: 600; min-width: 80px; flex-shrink: 0; }
+  .arch-val { color: var(--text-muted); }
+  .project-sidebar { display: flex; flex-direction: column; gap: 16px; }
+  .sidebar-stats {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    overflow: hidden;
+  }
+  .stat-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 16px;
+    border-bottom: 1px solid var(--border);
+    font-size: 13px;
+  }
+  .stat-row:last-child { border-bottom: none; }
+  .stat-row span { color: var(--text-muted); }
+  .stat-row strong { color: var(--text); }
+  .status-live { color: #34d399 !important; }
+  @media (max-width: 900px) {
+    .project-grid { grid-template-columns: 1fr; }
+  }
+</style>

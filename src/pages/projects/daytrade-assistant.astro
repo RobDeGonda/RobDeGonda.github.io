@@ -1,0 +1,251 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import FileTree from '../../components/FileTree.astro';
+
+const files = [
+  { name: 'run_scan.py', type: 'file' },
+  { name: 'config.py', type: 'file' },
+  { name: 'data_fetcher.py', type: 'file' },
+  { name: 'indicators.py', type: 'file' },
+  { name: 'signals.py', type: 'file' },
+  { name: 'options_scanner.py', type: 'file' },
+  { name: 'market_scanner.py', type: 'file' },
+  { name: 'report_generator.py', type: 'file' },
+  { name: 'weekly_forward_report.py', type: 'file' },
+  { name: 'chart_generator.py', type: 'file' },
+  { name: 'conviction_summary.py', type: 'file' },
+  { name: 'dashboard.py', type: 'file' },
+  { name: 'database.py', type: 'file' },
+  { name: 'scanner.py', type: 'file' },
+  { name: 'mcp', type: 'folder', children: [
+    { name: 'coinbase_market.js', type: 'file' },
+    { name: 'package.json', type: 'file' },
+  ]},
+  { name: 'requirements.txt', type: 'file' },
+  { name: 'CLAUDE.md', type: 'file' },
+  { name: '.mcp.json', type: 'file' },
+  { name: 'env.txt', type: 'file' },
+];
+---
+
+<Layout title="DayTrade Assistant — Rob DeGonda">
+  <main>
+    <div class="project-hero">
+      <div class="hero-bg">
+        <canvas id="chart-canvas"></canvas>
+      </div>
+      <div class="container hero-content">
+        <a href="/projects" class="back-link">← Projects</a>
+        <div class="project-icon">📈</div>
+        <h1>DayTrade Assistant</h1>
+        <p class="project-tagline">Algorithmic swing trade screener with live Schwab API integration</p>
+        <div class="project-meta">
+          <span class="meta-tag">Python</span>
+          <span class="meta-tag">Schwab API</span>
+          <span class="meta-tag">SQLite</span>
+          <span class="meta-tag">TradingView</span>
+          <span class="meta-tag">Black-Scholes</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="container project-body">
+      <div class="project-grid">
+        <div class="project-main">
+          <h2>What it does</h2>
+          <p>DayTrade Assistant scans the S&P 500 and Nasdaq 100 using 10 technical signals — MACD crossovers, RSI bounces, Bollinger Band breakouts, golden crosses, volume spikes, OBV divergence, and more — then scores each setup by conviction on a 1–10 scale.</p>
+          <p>For high-conviction plays, it queries live options chains via the Schwab API, runs Black-Scholes to calculate Greeks (delta, gamma, theta, vega), and recommends specific call contracts filtered to 7–30 DTE with target delta 0.35–0.55. The full output is a self-contained dark-mode HTML report with embedded TradingView charts.</p>
+          <p>A weekly forward report generates narrative theses for each position — macro context, micro catalysts, entry triggers, probability estimates, and kill conditions. A live Dash dashboard auto-refreshes every 15 minutes.</p>
+
+          <h2>Architecture</h2>
+          <div class="arch-grid">
+            <div class="arch-item"><span class="arch-label">Data</span><span class="arch-val">Schwab API (schwab-py) — real-time quotes, history, options chains</span></div>
+            <div class="arch-item"><span class="arch-label">Crypto</span><span class="arch-val">Coinbase Exchange public API — BTC, ETH, SOL, 10 assets</span></div>
+            <div class="arch-item"><span class="arch-label">Signals</span><span class="arch-val">10 technical signals, conviction scoring 1–10</span></div>
+            <div class="arch-item"><span class="arch-label">Options</span><span class="arch-val">Black-Scholes Greeks, delta-filtered contract recommendations</span></div>
+            <div class="arch-item"><span class="arch-label">Reports</span><span class="arch-val">Self-contained HTML with TradingView embedded charts</span></div>
+            <div class="arch-item"><span class="arch-label">AI</span><span class="arch-val">Claude Haiku — 2-sentence conviction summary per setup</span></div>
+          </div>
+        </div>
+
+        <div class="project-sidebar">
+          <FileTree
+            repoName="DayTrade Assistant"
+            files={files}
+          />
+          <div class="sidebar-stats">
+            <div class="stat-row"><span>Universe</span><strong>S&P 500 + Nasdaq 100</strong></div>
+            <div class="stat-row"><span>Signals</span><strong>10 technical signals</strong></div>
+            <div class="stat-row"><span>Options</span><strong>7–30 DTE · Δ 0.35–0.55</strong></div>
+            <div class="stat-row"><span>Status</span><strong class="status-live">Live</strong></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+</Layout>
+
+<script>
+  const canvas = document.getElementById('chart-canvas') as HTMLCanvasElement;
+  if (canvas) {
+    const ctx = canvas.getContext('2d')!;
+    canvas.width = canvas.offsetWidth;
+    canvas.height = canvas.offsetHeight;
+
+    const points: number[] = [];
+    const count = 80;
+    let base = 200;
+    for (let i = 0; i < count; i++) {
+      base += (Math.random() - 0.45) * 12;
+      points.push(Math.max(80, Math.min(canvas.height - 40, base)));
+    }
+
+    function draw() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      const grad = ctx.createLinearGradient(0, 0, 0, canvas.height);
+      grad.addColorStop(0, 'rgba(0, 217, 255, 0.15)');
+      grad.addColorStop(1, 'rgba(0, 217, 255, 0)');
+
+      ctx.beginPath();
+      const step = canvas.width / (count - 1);
+      ctx.moveTo(0, points[0]);
+      for (let i = 1; i < count; i++) {
+        const x = i * step;
+        const prev = (i - 1) * step;
+        const cpx = (prev + x) / 2;
+        ctx.bezierCurveTo(cpx, points[i-1], cpx, points[i], x, points[i]);
+      }
+      ctx.lineTo(canvas.width, canvas.height);
+      ctx.lineTo(0, canvas.height);
+      ctx.closePath();
+      ctx.fillStyle = grad;
+      ctx.fill();
+
+      ctx.beginPath();
+      ctx.moveTo(0, points[0]);
+      for (let i = 1; i < count; i++) {
+        const x = i * step;
+        const prev = (i - 1) * step;
+        const cpx = (prev + x) / 2;
+        ctx.bezierCurveTo(cpx, points[i-1], cpx, points[i], x, points[i]);
+      }
+      ctx.strokeStyle = '#00d9ff';
+      ctx.lineWidth = 2;
+      ctx.stroke();
+    }
+    draw();
+    window.addEventListener('resize', () => {
+      canvas.width = canvas.offsetWidth;
+      canvas.height = canvas.offsetHeight;
+      draw();
+    });
+  }
+</script>
+
+<style>
+  .project-hero {
+    position: relative;
+    height: 340px;
+    overflow: hidden;
+    background: linear-gradient(135deg, #0a1128, #0c2340, #061830);
+    display: flex;
+    align-items: flex-end;
+  }
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    opacity: 0.6;
+  }
+  #chart-canvas { width: 100%; height: 100%; display: block; }
+  .hero-content {
+    position: relative;
+    z-index: 2;
+    padding-bottom: 40px;
+  }
+  .back-link {
+    display: inline-block;
+    font-size: 13px;
+    color: var(--text-muted);
+    margin-bottom: 16px;
+    transition: color 0.2s;
+  }
+  .back-link:hover { color: var(--text); text-decoration: none; }
+  .project-icon { font-size: 36px; margin-bottom: 12px; }
+  h1 {
+    font-size: clamp(32px, 5vw, 52px);
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    margin-bottom: 12px;
+  }
+  .project-tagline { font-size: 17px; color: var(--text-muted); margin-bottom: 16px; }
+  .project-meta { display: flex; flex-wrap: wrap; gap: 8px; }
+  .meta-tag {
+    font-size: 12px;
+    font-weight: 600;
+    color: #00d9ff;
+    background: rgba(0,217,255,0.1);
+    border: 1px solid rgba(0,217,255,0.25);
+    padding: 4px 12px;
+    border-radius: 100px;
+  }
+
+  .project-body { padding: 48px 0 100px; }
+  .project-grid {
+    display: grid;
+    grid-template-columns: 1fr 400px;
+    gap: 48px;
+    align-items: start;
+  }
+
+  .project-main h2 {
+    font-size: 20px;
+    font-weight: 700;
+    margin: 0 0 16px;
+    color: var(--text);
+  }
+  .project-main h2:not(:first-child) { margin-top: 40px; }
+  .project-main p {
+    font-size: 15px;
+    color: var(--text-muted);
+    line-height: 1.75;
+    margin-bottom: 16px;
+  }
+
+  .arch-grid { display: flex; flex-direction: column; gap: 8px; }
+  .arch-item {
+    display: flex;
+    gap: 16px;
+    padding: 12px 16px;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    font-size: 14px;
+  }
+  .arch-label { color: #00d9ff; font-weight: 600; min-width: 80px; flex-shrink: 0; }
+  .arch-val { color: var(--text-muted); }
+
+  .project-sidebar { display: flex; flex-direction: column; gap: 16px; }
+
+  .sidebar-stats {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    overflow: hidden;
+  }
+  .stat-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 16px;
+    border-bottom: 1px solid var(--border);
+    font-size: 13px;
+  }
+  .stat-row:last-child { border-bottom: none; }
+  .stat-row span { color: var(--text-muted); }
+  .stat-row strong { color: var(--text); }
+  .status-live { color: #34d399 !important; }
+
+  @media (max-width: 900px) {
+    .project-grid { grid-template-columns: 1fr; }
+  }
+</style>

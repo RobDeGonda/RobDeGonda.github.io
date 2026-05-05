@@ -1,0 +1,173 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import FileTree from '../../components/FileTree.astro';
+
+const files = [
+  { name: 'app', type: 'folder', children: [
+    { name: 'src/app', type: 'folder', children: [] },
+    { name: 'next.config.ts', type: 'file' },
+    { name: 'package.json', type: 'file' },
+    { name: 'postcss.config.mjs', type: 'file' },
+  ]},
+  { name: 'CLAUDE.md', type: 'file' },
+  { name: 'AST Home.md', type: 'file' },
+  { name: 'AST _Context.md', type: 'file' },
+  { name: 'Demo Build — To-Do.md', type: 'file' },
+  { name: 'AI Sales Trainer — Business Plan.docx', type: 'file' },
+  { name: 'Market Research.pdf', type: 'file' },
+];
+---
+
+<Layout title="AI Sales Trainer — Rob DeGonda">
+  <main>
+    <div class="project-hero">
+      <div class="waveform-bg">
+        {Array.from({length: 60}).map((_, i) => (
+          <div class="wave-bar" style={`--i:${i}; height:${20 + Math.sin(i * 0.4) * 40 + Math.random() * 30}%`}></div>
+        ))}
+      </div>
+      <div class="hero-overlay"></div>
+      <div class="container hero-content">
+        <a href="/projects" class="back-link">← Projects</a>
+        <div class="project-icon">🎙️</div>
+        <h1>AI Sales Trainer</h1>
+        <p class="project-tagline">Real-time AI coaching for high-ticket remote closers — delivered to your ear while you're on the call</p>
+        <div class="project-meta">
+          <span class="meta-tag">Claude API</span>
+          <span class="meta-tag">Twilio</span>
+          <span class="meta-tag">Deepgram</span>
+          <span class="meta-tag">ElevenLabs</span>
+          <span class="meta-tag">Next.js</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="container project-body">
+      <div class="project-grid">
+        <div class="project-main">
+          <h2>What it does</h2>
+          <p>AI Sales Trainer listens to live sales calls in real time and delivers coaching feedback through an earpiece — without the prospect hearing a thing. Built for high-ticket remote closers doing $5K–$50K deals: real estate, SaaS, coaching, financial services.</p>
+          <p>The audio pipeline uses Twilio to intercept call audio, Deepgram for low-latency speech-to-text transcription, Claude to analyze the live transcript and generate coaching prompts, and ElevenLabs to synthesize the feedback into a natural voice delivered to the rep's ear. The entire loop runs in under 3 seconds.</p>
+          <p>Phase 1 (Next.js dashboard) is complete — reps can review call transcripts, track improvement metrics, and manage their coaching playbook. Phase 2 (the live audio pipeline) is the core product and is in active development.</p>
+
+          <h2>How the pipeline works</h2>
+          <div class="pipeline">
+            <div class="pipeline-step">
+              <span class="step-num">1</span>
+              <div><strong>Call starts</strong><span>Twilio connects to both rep and prospect; audio stream forked</span></div>
+            </div>
+            <div class="pipeline-arrow">↓</div>
+            <div class="pipeline-step">
+              <span class="step-num">2</span>
+              <div><strong>Transcription</strong><span>Deepgram converts rep + prospect speech to text in real time</span></div>
+            </div>
+            <div class="pipeline-arrow">↓</div>
+            <div class="pipeline-step">
+              <span class="step-num">3</span>
+              <div><strong>Analysis</strong><span>Claude reads the live transcript, detects objections, buying signals, and coaching opportunities</span></div>
+            </div>
+            <div class="pipeline-arrow">↓</div>
+            <div class="pipeline-step">
+              <span class="step-num">4</span>
+              <div><strong>Delivery</strong><span>ElevenLabs synthesizes coaching feedback; rep hears it in their earpiece in &lt;3s</span></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="project-sidebar">
+          <FileTree repoName="AI Sales Trainer" files={files} />
+          <div class="sidebar-stats">
+            <div class="stat-row"><span>Phase 1</span><strong class="status-live">Complete</strong></div>
+            <div class="stat-row"><span>Phase 2 (audio)</span><strong class="status-building">In development</strong></div>
+            <div class="stat-row"><span>Target</span><strong>$5K–$50K deal closers</strong></div>
+            <div class="stat-row"><span>Latency target</span><strong>&lt; 3 seconds</strong></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+</Layout>
+
+<style>
+  .project-hero {
+    position: relative;
+    height: 340px;
+    overflow: hidden;
+    background: linear-gradient(135deg, #0a1128, #0a2820, #061e18);
+    display: flex;
+    align-items: flex-end;
+  }
+  .waveform-bg {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    gap: 3px;
+    padding: 0 20px;
+    opacity: 0.3;
+  }
+  .wave-bar {
+    flex: 1;
+    background: #34d399;
+    border-radius: 2px;
+    animation: pulse var(--i, 1) 1.5s ease-in-out infinite alternate;
+    animation-duration: calc(0.8s + var(--i) * 0.02s);
+  }
+  @keyframes pulse { from { transform: scaleY(0.3); } to { transform: scaleY(1); } }
+  .hero-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to bottom, rgba(10,17,40,0.2) 0%, rgba(10,17,40,0.75) 100%);
+  }
+  .hero-content { position: relative; z-index: 2; padding-bottom: 40px; }
+  .back-link { display: inline-block; font-size: 13px; color: var(--text-muted); margin-bottom: 16px; transition: color 0.2s; }
+  .back-link:hover { color: var(--text); text-decoration: none; }
+  .project-icon { font-size: 36px; margin-bottom: 12px; }
+  h1 { font-size: clamp(32px, 5vw, 52px); font-weight: 800; letter-spacing: -0.03em; margin-bottom: 12px; }
+  .project-tagline { font-size: 17px; color: var(--text-muted); margin-bottom: 16px; max-width: 560px; }
+  .project-meta { display: flex; flex-wrap: wrap; gap: 8px; }
+  .meta-tag { font-size: 12px; font-weight: 600; color: #34d399; background: rgba(52,211,153,0.1); border: 1px solid rgba(52,211,153,0.25); padding: 4px 12px; border-radius: 100px; }
+
+  .project-body { padding: 48px 0 100px; }
+  .project-grid { display: grid; grid-template-columns: 1fr 400px; gap: 48px; align-items: start; }
+  .project-main h2 { font-size: 20px; font-weight: 700; margin: 0 0 16px; }
+  .project-main h2:not(:first-child) { margin-top: 40px; }
+  .project-main p { font-size: 15px; color: var(--text-muted); line-height: 1.75; margin-bottom: 16px; }
+
+  .pipeline { display: flex; flex-direction: column; gap: 0; }
+  .pipeline-step {
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+    padding: 16px;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+  }
+  .step-num {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: #34d399;
+    color: #0a1128;
+    font-size: 13px;
+    font-weight: 800;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  .pipeline-step strong { display: block; font-size: 14px; color: var(--text); margin-bottom: 4px; }
+  .pipeline-step span { font-size: 13px; color: var(--text-muted); }
+  .pipeline-arrow { text-align: center; color: #34d399; font-size: 18px; padding: 4px 0; }
+
+  .project-sidebar { display: flex; flex-direction: column; gap: 16px; }
+  .sidebar-stats { background: var(--bg-card); border: 1px solid var(--border); border-radius: 10px; overflow: hidden; }
+  .stat-row { display: flex; justify-content: space-between; align-items: center; padding: 12px 16px; border-bottom: 1px solid var(--border); font-size: 13px; }
+  .stat-row:last-child { border-bottom: none; }
+  .stat-row span { color: var(--text-muted); }
+  .stat-row strong { color: var(--text); }
+  .status-live { color: #34d399 !important; }
+  .status-building { color: #fb923c !important; }
+  @media (max-width: 900px) { .project-grid { grid-template-columns: 1fr; } }
+</style>
